@@ -9,19 +9,19 @@ import asyncio
 
 colorama.init(autoreset=True)
 
-TOKEN = '7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk'
+TOKEN = 'YOUR_BOT_TOKEN'  
 CHANNEL_USERNAME = '@walletveli' 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text('Hello! I am your bot.')
 
 def generate_visa():
-    
     bin_number = '455225'  
     numofvisa = 16
     nums = '0123456789'
     visa = bin_number + ''.join(choice(nums) for _ in range(numofvisa - len(bin_number)))
-
+    
+    
     expiry_year = randint(2024, 2030)
     expiry_month = randint(1, 12)
     expiry = f"{expiry_month:02d} l {expiry_year}"
@@ -46,21 +46,18 @@ def generate_visa():
     return message
 
 async def post_to_channel(message):
-    print("Sending message to channel...")  
     await application.bot.send_message(chat_id=CHANNEL_USERNAME, text=message)
 
 def job():
-    print("Generating visa...")  
     visa_message = generate_visa()
-    print("Generated visa message:", visa_message)  
     asyncio.run(post_to_channel(visa_message))
 
 def run_scheduler():
-
-    schedule.every(1).minutes.do(job)  
+    
+    schedule.every(10).seconds.do(job)
     while True:
         schedule.run_pending()
-        time.sleep(1)
+        time.sleep(1)  
 
 def start_scheduler():
     scheduler_thread = threading.Thread(target=run_scheduler)
@@ -68,9 +65,6 @@ def start_scheduler():
 
 if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN).build()
-    
     application.add_handler(CommandHandler("start", start))
-
     start_scheduler()
-    
     application.run_polling()

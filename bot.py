@@ -50,7 +50,7 @@ async def post_to_channel(message):
 def job():
     visa_message = generate_visa()
     
-    asyncio.create_task(post_to_channel(visa_message))
+    asyncio.run_coroutine_threadsafe (post_to_channel(visa_message))
 
 def run_scheduler():
     schedule.every(5).seconds.do(job)  
@@ -66,4 +66,4 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     start_scheduler()
-    application.run_polling()
+    application.run_Webhook()

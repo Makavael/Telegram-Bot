@@ -66,4 +66,4 @@ if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
     start_scheduler()
-    application.run_Webhook()
+   application.run_webhook(listen="0.0.0.0", port=8443, url_path='7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk', webhook_url='https://your-domain.com/7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk')

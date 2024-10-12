@@ -3,7 +3,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import schedule
 import time
 import threading
-from random import choice
+from random import choice, randint
 import colorama
 import asyncio
 
@@ -16,20 +16,34 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text('Hello! I am your bot.')
 
 def generate_visa():
+    
+    bin_number = '455225'  
     numofvisa = 16
     nums = '123456789'
-    visa = ''.join(choice(nums) for _ in range(numofvisa))
-    visacr = '123456789'
-    visas = 1
-    viscr = ''.join(choice(visacr) for _ in range(visas))
-    visacr = '5'
-    visas = 2
-    vissadata = '02'.join(choice(visacr) for _ in range(visas))
-    visacvcn = '123456789'
-    visacvch = 3
-    visacvc = ''.join(choice(visacvcn) for _ in range(visacvch))
+    visa = bin_number + ''.join(choice(nums) for _ in range(numofvisa - len(bin_number)))
     
-    return f"{visa}|{viscr}/{vissadata}|{visacvc}"
+    expiry_year = randint(2024, 2030)
+    expiry_month = randint(1, 12)
+    expiry = f"{expiry_month:02d} l {expiry_year}"
+
+    cvc = ''.join(choice('0123456789') for _ in range(3))
+    
+    message = (
+        "Dev : @Makavael\n"
+        "↳\n"
+        f"Card: {visa} l {expiry} l {cvc}\n"
+        "↳\n"
+        f"Bin Information : (#{bin_number})\n"
+        "↳ Vendor: Visa\n"
+        "↳ Type: DEBIT\n"
+        "↳ Level: CLASSIC\n"
+        "↳ Bank:\n"
+        " ↳ USA\n"
+        "↳ Country:\n"
+        " ↳ UNITED STATES - USD - 🇺🇸"
+    )
+    
+    return message
 
 async def post_to_channel(message):
     await application.bot.send_message(chat_id=CHANNEL_USERNAME, text=message)

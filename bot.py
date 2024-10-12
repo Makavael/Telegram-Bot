@@ -39,6 +39,7 @@ def job():
     asyncio.run(post_to_channel(visa_message))
 
 def run_scheduler():
+    schedule.every(1).minutes.do(job)  
     while True:
         schedule.run_pending()
         time.sleep(1)
@@ -52,8 +53,6 @@ if __name__ == '__main__':
     
     application.add_handler(CommandHandler("start", start))
 
-    
     start_scheduler()
     
     application.run_polling()
-

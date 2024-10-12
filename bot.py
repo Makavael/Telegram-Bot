@@ -9,7 +9,7 @@ import asyncio
 
 colorama.init(autoreset=True)
 
-TOKEN = 'YOUR_BOT_TOKEN'  
+TOKEN = '7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk'  
 CHANNEL_USERNAME = '@walletveli' 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

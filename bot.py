@@ -19,15 +19,15 @@ def generate_visa():
     
     bin_number = '455225'  
     numofvisa = 16
-    nums = '123456789'
+    nums = '0123456789'
     visa = bin_number + ''.join(choice(nums) for _ in range(numofvisa - len(bin_number)))
-    
+
     expiry_year = randint(2024, 2030)
     expiry_month = randint(1, 12)
     expiry = f"{expiry_month:02d} l {expiry_year}"
 
     cvc = ''.join(choice('0123456789') for _ in range(3))
-    
+
     message = (
         "Dev : @Makavael\n"
         "↳\n"
@@ -42,17 +42,21 @@ def generate_visa():
         "↳ Country:\n"
         " ↳ UNITED STATES - USD - 🇺🇸"
     )
-    
+
     return message
 
 async def post_to_channel(message):
+    print("Sending message to channel...")  
     await application.bot.send_message(chat_id=CHANNEL_USERNAME, text=message)
 
 def job():
+    print("Generating visa...")  
     visa_message = generate_visa()
+    print("Generated visa message:", visa_message)  
     asyncio.run(post_to_channel(visa_message))
 
 def run_scheduler():
+
     schedule.every(1).minutes.do(job)  
     while True:
         schedule.run_pending()

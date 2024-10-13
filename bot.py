@@ -9,7 +9,6 @@ import asyncio
 
 colorama.init(autoreset=True)
 
-TOKEN = '7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk'  
 CHANNEL_USERNAME = '@walletveli'  
 application = ApplicationBuilder().token(TOKEN).build()
 

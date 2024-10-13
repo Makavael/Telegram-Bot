@@ -6,7 +6,6 @@ import threading
 from random import choice, randint
 import colorama
 import asyncio
-import emoji
 
 colorama.init(autoreset=True)
 
@@ -23,10 +22,8 @@ def generate_visa():
     numofvisa = 16
     nums = '0123456789'
     
-    
     visa = bin_number + ''.join(choice(nums) for _ in range(numofvisa - len(bin_number)))
 
-    
     expiry_year = randint(2024, 2030)
     expiry_month = randint(1, 12)
     expiry = f"{expiry_month:02d}|{expiry_year}"  
@@ -48,6 +45,7 @@ def generate_visa():
         "Japan": "🇯🇵",
         "China": "🇨🇳",
         "India": "🇮🇳",
+        
     }
 
     country_name = choice(list(countries.keys()))
@@ -55,8 +53,9 @@ def generate_visa():
 
     message = (
         "Approved!✅\n\n"
+        'Dev: @Makavael'
         f"• 𝗖𝗔𝗥𝗗 : {visa}|{expiry}|{cvc}\n"
-        "• 𝐆𝐚𝐭𝐞𝐰𝐚𝐲 : Stripe Auth 2!!\n"
+        
         "• 𝗥𝗘𝗦𝗣𝗢𝗡𝗦𝗘 : [CVV CARD - Status -> Succeeded!]\n\n"
         "• 𝗜𝗡𝗙𝗢: : VISA - DEBIT - VISA CLASSIC\n"
         f"• 𝗜𝗦𝗦𝗨𝗘𝗥 : Green Dot Bank Dba Bonneville Bank\n"

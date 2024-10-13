@@ -49,8 +49,8 @@ async def post_to_channel(message):
 
 def job():
     visa_message = generate_visa()
-    
-    asyncio.run_coroutine_threadsafe (post_to_channel(visa_message))
+    loop = asyncio.get_event_loop()  
+    asyncio.run_coroutine_threadsafe(post_to_channel(visa_message), loop)  
 
 def run_scheduler():
     schedule.every(5).seconds.do(job)  
@@ -65,5 +65,14 @@ def start_scheduler():
 if __name__ == '__main__':
     application = ApplicationBuilder().token(TOKEN).build()
     application.add_handler(CommandHandler("start", start))
-    start_scheduler()
-   application.run_webhook(listen="0.0.0.0", port=8443, url_path='7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk', webhook_url='https://your-domain.com/7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk')
+    
+    
+    TOKEN = '7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk'
+
+application.run_webhook(
+    listen="0.0.0.0",
+    port=8080,
+    url_path=TOKEN,  
+    webhook_url='https://7d30-41-45-152-143.ngrok-free.app/' + TOKEN
+)
+

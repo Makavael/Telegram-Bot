@@ -10,7 +10,7 @@ import asyncio
 colorama.init(autoreset=True)
 
 TOKEN = '7138102548:AAFcY-t0XSHsAhPxGkyPHRlAL9Xxb8-0GPk'  
-CHANNEL_USERNAME = '@walletveli' 
+CHANNEL_USERNAME = '@walletveli'  
 application = ApplicationBuilder().token(TOKEN).build()
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -46,13 +46,16 @@ def generate_visa():
     return message
 
 async def post_to_channel(message):
-    await application.bot.send_message(chat_id=@webveli, text=message)
+    try:
+        await asyncio.wait_for(application.bot.send_message(chat_id=CHANNEL_USERNAME, text=message), timeout=10)  
+    except asyncio.TimeoutError:
+        print("The request timed out!")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def job():
     visa_message = generate_visa()
-    loop = asyncio.new_event_loop()  
-    asyncio.set_event_loop(loop)  
-    loop.run_until_complete(post_to_channel(visa_message))  
+    asyncio.run(post_to_channel(visa_message))  # استخدام asyncio.run
 
 def run_scheduler():
     schedule.every(5).seconds.do(job)  

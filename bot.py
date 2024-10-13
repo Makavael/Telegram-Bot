@@ -46,7 +46,7 @@ def generate_visa():
     return message
 
 async def post_to_channel(message):
-    await application.bot.send_message(chat_id=CHANNEL_USERNAME, text=message)
+    await application.bot.send_message(chat_id=@webveli, text=message)
 
 def job():
     visa_message = generate_visa()
